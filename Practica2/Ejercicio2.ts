@@ -13,6 +13,13 @@ export interface types {
 
 type PokemonType = {
     name: string
+    id: number
+    generation: generation[]
+}
+
+export interface generation {
+    name: string
+
 }
 
 export interface abilities {
@@ -25,30 +32,57 @@ type Ability = {
     name: string
 }
 
-const fetchData = async (pokemonName) => {  
+const fetchData = async (route: string, pokemonSearch: string|null) => {  
     
     try {
       // Fetch a resource from the network. It returns a Promise
       // that resolves to the Response to that Request, whether it is successful or not.
       
-      const link = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
+      const link = `https://pokeapi.co/api/v2/${route}/${pokemonSearch}`
   
       const response = await fetch(
           link
       );
   
-      // Takes a Response stream and reads it to completion. It returns a promise that resolves
-      // with the result of parsing the body text as JSON.
+      if(route === "pokemon"){
       const pokemon: Pokemon = await response.json();
   
-      console.log("Nombre: ", pokemon.name, "\nPokemon Id: ", pokemon.id, "Tipos: ", pokemon.types,"Habilidades: ", pokemon.abilities)
+      console.log("Name: ", pokemon.name, "\nPokemon Id: ", pokemon.id, "\nTypes: ", pokemon.types,"\nAbilities: ", pokemon.abilities)
+      } else {
+        const pokemonType: PokemonType = await response.json();
+  
+        console.log("Name: ", pokemonType.name, "\nType Id: ", pokemonType.id, "\nGeneration introduced: ", pokemonType.generation)
+      }
     } catch (error) {
       // Debemos tratar siempre los errores cuando trabajemos con Promesas
       console.log(error);
     }
   };
 
-  //await fetchData ("ditto");
-  //await fetchData ("gallade");
-  const name = prompt("Please enter pokemon name:");
-  await fetchData ( name );
+  while(1){
+     //await fetchData ("pokemon", "ditto");
+     //await fetchData ("pokemon", "gallade");
+     //await fetchData ("type", "dragon");
+    const option = prompt("1.Choose Pokemon type.\n2.Choose Pokemon.\n0.EXIT.\n:");
+    
+    if (option == null){
+        console.log("NOT AVAILABLE OPTION SELECTED");
+    }else{
+        
+        
+        if(parseInt(option) === 1){
+            const route1 = "type"
+            const typeSearch = prompt("Please enter pokemon type by id(1-18) or by name: ");
+            await fetchData ( route1, typeSearch );
+            
+        } else if(parseInt(option) === 2) {
+            const route = "pokemon"
+            const nameSearch = prompt("Please enter pokemon name by id(1-1017) or by name: ");
+            await fetchData ( route, nameSearch );
+
+        } else
+            break;
+
+    }
+
+  }
