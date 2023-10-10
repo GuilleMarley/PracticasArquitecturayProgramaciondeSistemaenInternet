@@ -84,5 +84,5 @@ const fetchData = async (route: string, pokemonSearch: string|null) => {
             break;
 
     }
-
+    
   }
