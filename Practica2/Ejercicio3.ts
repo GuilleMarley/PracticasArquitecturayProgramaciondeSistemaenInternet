@@ -38,7 +38,7 @@ while(1){
             biblioteca.push(libro_var)
 
        } else if(parseInt(option) === 2) {
-           biblioteca.forEach((e)=>console.log(e))
+           //biblioteca.filter((e)=>console.log(e))
        } else
            break;
         
