@@ -11,7 +11,7 @@ let counter = 0;
 
 while(1){
     
-    const option = prompt("1.Choose Pokemon.\n2.Choose type.\n0.EXIT.\n:");
+    const option = prompt("1.Create book.\n2.Filter by genre.\n3.Remove book.\n4.EXIT.\n");
     
 
     if (option == null){
@@ -37,10 +37,27 @@ while(1){
 
             biblioteca.push(libro_var)
 
+            console.log("Actualmente hay estos libros:\n ", biblioteca)
+
        } else if(parseInt(option) === 2) {
+
            //biblioteca.filter((e)=>console.log(e))
-       } else
-           break;
+           const genreSearch = prompt("Que genero estas buscando?")
+           const genreFound = biblioteca.filter((libro) => libro.genre === genreSearch)
+           console.log("Hay estos libros con el genero ", genreSearch, "\n", genreFound)
+
+       } else if(parseInt(option) === 3){
+
+            console.log("Borro libro.\n")
+       
+        } else if(parseInt(option) === 4){
+            break;
+       }else {
+            console.log("-------------------")
+            console.log("Not a good choice.")
+            console.log("-------------------")
+            continue;
+       }
         
    }
    counter++
