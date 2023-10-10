@@ -80,8 +80,12 @@ const fetchData = async (route: string, pokemonSearch: string|null) => {
             const nameSearch = prompt("Please enter pokemon name by id(1-1017) or by name: ");
             await fetchData ( route, nameSearch );
 
-        } else
+        } else if(parseInt(option) === 0){
             break;
+        } else{
+            console.log("Not a good choice")
+            continue
+        }
 
     }
 
